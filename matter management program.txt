@@ -1,0 +1,252 @@
+"""
+MATTER MANAGEMENT PROGRAM FOR MANAGING MATTER SPEND
+"""
+from itertools import *
+import csv
+import datetime
+import pytz
+
+"""
+CLASSES
+"""
+class Matter:
+
+  num_of_mttrs = 0
+
+  #matter class is the number and formal name of a matter.
+  def __init__(self, number, caption=None, nickname=None, status=None):
+    self.number = number
+    self.caption = caption if caption is not None else None
+    self.nickname = nickname if nickname is not None else None
+    self.status = "Open" if status is None else "Closed"
+
+#special methods
+  def __repr__(self):
+    return "Matter Number: '{}'; Caption: '{}' aka: '{}'; status: {}.".format(self.number, self.caption, self.nickname, self.status)
+    	
+  def __str__(self):
+    return '{} - {}'.format(self.number(), self.caption)
+
+class AOP(Matter):
+  def __init__(self, number, fscl_year, fq1, fq2, fq3, fq4):
+    super().__init__(number)
+    self.AOP = [fscl_year, fq1, fq2, fq3, fq4]
+    self.fiscal_year = fscl_year
+    self.FQ1 = fq1
+    self.FQ2 = fq2
+    self.FQ3 = fq3
+    self.FQ4 = fq4
+
+
+
+  @classmethod
+  #This method gets the AOP for a matter .  To use it 'new_aop = AOP.from_screen()'
+  def from_screen(cls): 
+    print('Enter the AOP for a litigation matter in the format noted below.')
+    print('\t   Mattter#, FYR, $Q1$, $Q2$, $Q3$, $Q4$.')
+    print('Example:     23322, 2019, 3000, 4000, 5050, 6000')
+    number, fscl_year, fq1, fq2, fq3, fq4 = input("Enter AOP:  ").split()
+    return cls(number, fscl_year, fq1, fq2, fq3, fq4)
+
+  @classmethod
+    #This method gets the AOP for a matter .  To use it 'new_aop = AOP.from_screen()'
+  def from_file(cls): 
+    pass
+      #print('Enter the AOP for a litigation matter in the format noted below.')
+      #print('\t   Mattter#, FYR, $Q1$, $Q2$, $Q3$, $Q4$.')
+      #print('Example:     23322, 2019, 3000, 4000, 5050, 6000')
+      #number, fscl_year, fq1, fq2, fq3, fq4 = input("Enter AOP:  ").split()
+      #return cls(number, fscl_year, fq1, fq2, fq3, fq4)
+
+"""
+FUNCTIONS
+"""
+def timestamp():
+  #function requires datetime and pytz.  returns a current time datestamp string out to microsecond
+  current_time = datetime.datetime.now(tz=pytz.utc).astimezone(pytz.timezone('US/Central'))
+  timestmp = (str(current_time.year) + '-' +  str(current_time.month) + '-' +  str(current_time.day) + '-' + str(current_time.hour) + '-' + str(current_time.minute) + '-' + str(current_time.second) + '-' + str(current_time.microsecond))
+  return timestmp
+
+
+
+
+
+
+
+"""
+EXECUTIONS
+"""
+#new_aop = []
+new_aop = AOP.from_screen
+print(new_aop)
+##print(type(new_aop))
+#print(new_aop.nickname)
+#print(new_aop.number, 'chapy')
+
+#for a single tuple this works
+with open('AOP_output', 'a') as f:
+  f.write(new_aop) #I don't know why but the + is what got that to create the newline
+  f.write('\n')
+f.close()
+
+
+
+
+chad = number, fscl_year, fq1, fq2, fq3, fq4 = input("Enter the AOP:  ").split()
+#print(chad, 'chazz')
+print(type(new_aop), "new aop type")
+print(type(chad), "new chad")
+
+
+
+
+
+
+
+
+
+My_Matter = Matter(5569, "Sasso v. MDT")
+My_AOP = AOP(5569, 2018, 23, 24, 56, 67)
+print(My_Matter.__dict__)
+print(My_Matter.number) # no parens because it is an attribute
+print(My_Matter.caption)
+print(My_Matter.nickname)
+print(My_Matter.status)
+My_Matter = Matter(5569, status = 0)
+print('chad')
+print(My_Matter.status)
+print(My_AOP.AOP, 'chazz')
+print(My_AOP.AOP[2])
+#print(My_AOP.AOP.caption)
+My_Matter = Matter(55469, "Sasso v. MDT", nickname="Sasso")
+print(My_Matter.number)
+print(My_Matter.caption)
+print('nickname:', My_Matter.nickname)
+print(My_Matter.status)
+
+print(repr(My_Matter), 'this is a repr')
+#the foo function has a required argument and possible extra positional (requires the "*") (*args) and keyword (requires the "**") (**kwargs) arguments.  The extra arguments must be in order.  ANd key words mut be named differently
+# positional argument create a tuple
+#keyword argumenta re put into a dictionary
+
+class_list = []
+
+#while (True):
+number, fscl_year, fq1, fq2, fq3, fq4 = [int(i) for i in input(" Enter Mattter#, FYR, $Q1$, $Q2$, $Q3$, $Q4$ and then hit return").split(" ")]
+    
+class_list.append({
+  "Matter Number": number,
+  "Fiscal Year": fscl_year,
+  "FYQ1": fq1,
+  "FYQ2": fq2,
+  "FYQ3": fq3,
+  "FYQ4": fq4
+})
+
+
+#My_Dict = dict(class_list)
+
+
+ #   cont = input("Want to add another? (Y/N)")
+ #   if cont == "N":
+ #       break;
+
+print(type(class_list), 'type of the class_list')
+print(class_list)
+
+
+
+
+f = open('AOP_output', 'a')
+for item in class_list:
+  f.write(str(item)) # puts everything back to back making one long number
+  f.write('\n')
+f.close()
+
+
+
+
+
+
+
+def fiscal_quarter(month, year):
+  """use calendar month and year to create a string representing MDT fiscal quarter"""
+  Year = row['Charge Year']
+  Year_Int = str(int(Year[2:5]) + 1)
+  if month == '5' or month == '6' or month == '7':
+    FSCLQTR = 'FY' + Year_Int + 'Q1'
+  elif month == '8' or month == '9' or month == '10':
+    FSCLQTR = 'FY' + Year_Int + 'Q2'
+  elif month == '11' or month == '12':
+    FSCLQTR = 'FY' + Year_Int + 'Q3'
+  elif month == '1':
+    FSCLQTR = 'FY' + Year[2:5] + 'Q3'
+  elif month == '2' or month == '3' or month == '4':
+    FSCLQTR = 'FY' + Year + 'Q4'                    
+  return FSCLQTR  
+
+
+def convert_sign_of_num(number):
+  """used to convert a Passport spend to a positive number, but simply converts pos to neg and neg to pos"""
+  opp_sign_number = number * -1
+  return opp_sign_number
+
+
+
+
+with open('chad_tt_data.csv', 'r') as csv_file:
+  reader = csv.DictReader(islice(csv_file, 4, None))
+  spend_dict = {}
+  #print(type(spend_dict))
+  print(spend_dict.keys(),  "once?")
+  for row in reader:
+    print(row)
+    
+    
+
+
+
+
+
+def get_non_negative_int(prompt, num_type=None):
+  while True:
+    try:
+      value = int(input(prompt))
+    except ValueError:
+      print("enter a positive, whole number")
+      continue
+    if value <= 0:
+      print("enter a positive, whole number.")
+      continue
+    if num_type is 'month' and value > 12:
+      print("Month must not exceed 12.")
+      continue  
+    if num_type is year and value < year:
+      print("year must be >= current year.")
+      continue  
+    if num_type is year and value > year + 5:
+      print(" Let's not estimate this far into the future")
+      continue        
+    else:
+      break
+  return value
+
+
+with open('chad_tsk_mngr_input.csv', 'r') as csv_file:
+	
+	csv_reader = csv.reader(csv_file)
+	for line in csv_reader:
+		
+		f = open('test_file.txt', 'a')
+		
+		print('Next task:', line[0])
+		tsk_month = get_non_negative_int('enter month: ', month)
+		tsk_year = get_non_negative_int('enter year:', year)
+		tsk_day = 1
+		tsk_date = str(tsk_month) + "/1/" + str(tsk_year)
+		tsk_date2 = datetime.date(tsk_year, tsk_month, tsk_day)
+		print(tsk_date)
+		print(tsk_date2)
+		f.write(tsk_date)
+		f.write('\t')
+		

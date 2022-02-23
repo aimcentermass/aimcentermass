@@ -1,0 +1,31 @@
+"""
+to make an accrual program
+"""
+from itertools import *
+import csv
+
+with open('chad_test_1.csv', 'r') as csv_file:
+		
+		#reader is an iterator that iterates over rows in cv file.  so you could read reader as row
+		reader = csv.reader(csv_file)
+		for step in range(5):
+			header = next(reader)
+		print(header, 'chaddd')
+		#header = next(reader)
+		#header = next(reader)
+		#header = next(reader)
+		#header = next(reader)
+
+		
+		for row in reader:
+			data = list(zip(header, row))
+			#list(data)
+			print(data, '\n\n')
+			#print(row)
+			#print(data)
+		#data = [row for row in reader]
+		#print(data)
+		#print(reader.fieldnames)
+		
+		print('chippydo')
+		print(data)

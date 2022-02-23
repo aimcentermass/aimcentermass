@@ -1,0 +1,1040 @@
+from itertools import *
+import csv
+import datetime
+import pytz
+
+tday = datetime.date.today()
+current_time = datetime.datetime.now(tz=pytz.utc).astimezone(pytz.timezone('US/Central'))
+timestmp = (str(current_time.year) + '-' +  str(current_time.month) + '-' +  str(current_time.day) + '-' + str(current_time.hour) + '-' + str(current_time.minute) + '-' + str(current_time.second))
+print(current_time)
+print(timestmp)
+"""
+Given a list of tuples, you open a file in write mode. For each tuple in the list, you convert all of its elements into strings, join them by spaces to form the string, and write the string with a new line to the file. Then you close the file.  Edit: Didn't realize you started off with a list of tuples. Made changes to reflect that.
+"""
+my_tuple = (5569, 2018, 23, 24, 56, 67)
+list_of_tuples = [('Apples', '=', 10), ('Oranges', '<', 20)]
+my_list = ["apple", "banana", "cherry", "what's up"]
+
+f = open('file.txt', 'w')
+for t in list_of_tuples:
+  line = ' '.join(str(x) for x in t)
+  f.write(timestmp + '\t')
+  f.write(line + '\n')
+f.write('\n')
+f.close()
+
+
+with open('file.txt', 'a') as f:
+  for tuple in list_of_tuples:
+    f.write(str(tuple))
+    f.write('\n')
+  f.write('\n')
+f.close()
+
+#for a single tuple this works
+with open('file.txt', 'a') as f:
+  f.write(str(my_tuple) + '\n\n') #I don't know why but the + is what got that to create the newline
+  f.write('\n')
+f.close()
+
+"""
+If you're keen on a single function call, at least remove the square brackets [], so that the strings to be printed get made one at a time (a genexp rather than a listcomp) -- no reason to take up all the memory required to materialize the whole list of strings.
+"""
+
+with open('file.txt', 'a') as f:
+  for item in my_list:
+    f.write(timestmp + '\t\t')
+    f.write(item)
+    f.write('\n')
+f.close()
+
+# new stuff
+pyList = ['P', 'y', 't', 'h', 'o', 'n']
+pyTuple = ('P', 'y', 't', 'h', 'o', 'n')
+pyString = 'Python'
+# contains indices (0, 1, 2)
+# i.e. P, y and t
+sObject = slice(3)
+
+# slice a list
+print(pyList[sObject])
+
+# contains indices (1, 3)
+# i.e. y and h
+sObject = slice(0, 5, 2)
+
+# slice a tuple
+print(pyTuple[sObject])
+
+# slice a tuple
+print(pyString[sObject])
+# new stuff
+
+import csv
+
+#with open('chad_task2.csv', 'r') as csv_file:
+#with open('chad_test.txt', 'r') as csv_file:
+with open('chad_testyy.csv', 'r') as csv_file:
+	
+	csv_reader = csv.reader(csv_file)
+	with open('chad_csvout', 'w') as new_file:
+		for line in range(4):
+			print(line)
+			csv_reader.__next__()
+
+			
+		#csv_writer = csv.writer(new_file, delimiter = '-')
+		csv_writer = csv.writer(new_file)
+		for line in csv_reader:
+			#print(line)
+			#csv_writer.writerow(line[4:5])
+			csv_writer.writerow(line)
+			print('writing to output file')
+			#print(line[4:5], 'chas')
+			#print(type(line[4:5]))
+			if line[4:5] == ['11']:
+				print(line[4:5], "..,.." , line[5:6])	
+				print("chaddd")		
+
+# new stuff
+rint('static method for employee class:')
+print(Employee.is_workday(my_date))
+print(Employee.is_workday(today))
+
+print(Employee.fullname(emp_1))
+print(emp_1.fullname())
+print(emp_1.pay)
+#print(help(Developer))
+print(Employee.fullname(emp_2))
+
+
+#new class
+
+class gun:
+        def __init__(self, mfr, model, caliber, color):
+                self.mfr = mfr
+                self.model = model
+                self.caliber = caliber
+                self.color = color
+
+#__repr__ meant to be unambiguous and in a perfect world executable by itself
+        def __repr__(self):
+                return '{self.__class__.__name__}({self.mfr}, {self.model}, {self.caliber}, {self.color})'.format(self=self)
+
+#__str__ meant to be readable for a person
+        def __str__(self):
+                return 'I have a {self.mfr} {self.model}. It is in {self.caliber} mm.'.format(self=self)
+
+
+
+my_gun = gun('Glock', '17', 9, 'black')
+my_gun2 = gun('Smith & Wesson', 'Shield', 9, '')
+print('chad and gunsie')
+my_gun #nothing happens
+print('<', my_gun, '>')
+#print(help(my_gun))
+var1 = '{}'.format(my_gun)
+print('var1' , var1, 'var1')
+my_gun
+#str(my_gun)
+#print(help(my_gun))
+repr(my_gun)
+print('this is a repr of class gun: ', repr(my_gun))
+print('this is a str of class gun: ', str(my_gun))
+print('hello')
+print(my_gun)
+print('goodbye')
+print(my_gun2)
+print(repr(my_gun2))
+
+bb = gun
+# bb is an "instance" of gun
+# bb is an object of gun
+bb.bullet_type = 'round'
+
+
+class user:
+        pass
+
+user1 = user()
+user1.first_name = 'bubba'
+user1.last_name = 'johnson'
+first_name = 'clark'
+last_name = 'griswold'
+user1.age = 33
+user2 = user()
+user2.favorite_book = 'all creatures great and small'
+
+print(user1.first_name)
+print(first_name)
+print(user1.first_name, user1.last_name)
+
+
+
+class MyClass:
+        """A simple example class"""
+        i = 12345
+
+        def f(self):
+                return 'hello world'
+
+        def gg(number):
+                result = number * 5
+                return result
+
+
+print(MyClass.i)
+print(MyClass.f)
+a = MyClass
+print(a, '= that was aAAAAAAAAAAA')
+#print(a.i()) #TypeError: 'int' object is not callable
+print(a.i) # i is in integer so I get a number
+print(a.f, 'hmmm')
+a.f(a)
+b = a.f(a)
+print(b)
+#error print(a.f())
+print(a.f(MyClass))
+print(MyClass.__doc__)
+print(MyClass.__repr__)
+
+x = MyClass()
+z = x.f
+print(z)
+
+zz = MyClass()
+#ss = zz.gg(5)
+#zz.gg(5)
+#print(ss)
+
+ppp = MyClass.gg(3455)
+print(ppp)
+
+
+import math
+
+class Bag:
+        def __init__(self):
+                self.data = [1]
+
+        def add(self, x):
+                self.data.append(x)
+
+        def addtwice(self, x):
+                self.add(x)
+                self.add(x)
+
+x = Bag()
+print(x, '<---- this is x')
+x.add(5)
+z = x.addtwice(6)
+print(x.data)
+# error print(y.data)
+#print(y)
+print(z)
+print(Bag())
+
+class Circle (object):
+
+        def __init__(self, radius):
+                self.radius = radius
+                self.area = 3.14 * radius*radius
+
+        def area(self):
+                return math.pi * self.radius ** 2
+
+my_circle = Circle(2)
+y = my_circle.area
+print(y)
+#print(my_circle.area())
+print(my_circle.radius)
+
+
+class Complex:
+    def __init__(self, realpart, imagpart, cnter):
+        self.r = realpart
+        self.i = imagpart
+        self.counter = cnter
+
+x = Complex(4, -3.5, 1)
+
+x.counter = 1
+while x.counter < 100:
+        x.counter = x.counter * 2
+        print(x.counter)
+print(x.counter)
+del x.counter
+print ('done')
+
+def foo(required, *args, **kwargs):
+  print("Required argument:", required)
+  if args:
+    print("Positional argument:", args)
+  if kwargs:
+    print("keyword argument:", kwargs)
+
+#foo() missing the required positional argument
+foo("chap")
+foo("XHp", 1, 2, 3)
+foo(5)
+foo("chappy", 4, 5, "chadd", 1, "string", key_2 = 5, key_0 = "another string", key_1 = 5678)
+
+
+#we can write wrapper functions but remember qwargs can be changed in place because they are a dictionary, the args are tuples and must be created anew as they are imutable.  This is a dangerous way but sometimes useful to wrap a library.
+def foo_1(x, *args, **kwargs):
+  kwargs['name'] = "Alice"
+  new_args = args, ("extra", )
+  foo(x, *new_args, **kwargs)
+
+
+  foo("chap")
+foo_1("XHp", 1, 2, 3)
+foo_1(5)
+foo_1("chappy", 4, 5, "chadd", 1, "string", key_2 = 5, key_0 = "another string", key_1 = 5678)
+
+class Car:
+  def __init__(self, color, mileage):
+    self.color = color
+    self.mileage = mileage
+
+class AlwaysBlueCar(Car):
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.color = 'blue'
+
+my_car = Car('red', 120000)
+print(my_car)
+print(my_car.color)
+my_blue_car = AlwaysBlueCar('red', 140000)
+print(my_blue_car)
+print(my_blue_car.color)
+
+
+
+
+
+
+teams = list()
+scores = list()
+
+#adding a team
+if loop=="1":
+    team_name = input("Enter a team name: ")
+    print ("This team is succesfully added!")
+    teams.append(team_name)
+
+#selecting the team by user input
+elif loop=="4":
+   test = input("Enter a team name: ")
+   if test in list(teams):
+       score_team = int(input("How many points does this team get? "))
+       scores.append(score_team)
+   else:
+       print("Sorry, thats not a valid team name!")   
+
+
+#new stuff
+import colorama
+from colorama import Fore
+
+print(Fore.BLUE + "Hello world")
+print(Fore.RED + "Hello world")
+print(Fore.YELLOW + "Hello world")
+print(Fore.CYAN + "Hello world")
+print(Fore.WHITE + "Hello world")
+print(Fore.BLACK + "Hello world")
+
+person = {'name': "Chad Hanson", 'age': 52} sentence = ' My name is {0} and I am {1} years old.'.format(person['name'], person['age'])
+print(sentence)
+
+# this unpacks the key words
+sentence = 'My NMname is {name} and I am {age} years old.'.format(**person)
+print(sentence)
+
+
+sentence = ' My name is {0[name]} and I am {1[age]} years old.'.format(person, person)
+
+print(sentence)
+
+
+sentence = ' My name is {0[name]} and I am {0[age]} years old.'.format(person)
+
+print(sentence)
+
+l = ['jen', 23]
+sentence = ' My name is {0[0]} and I am {0[1]} years old.'.format(l)
+
+print(sentence)
+
+class Person():
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p1 = Person('Jack', '33')
+
+sentence = 'My name is {0.name} and I am {0.age} years old.'.format(p1)
+
+print(sentence)
+
+sentence = 'My name is {name} and I am {age} years old.'.format(name='Jenn', age='30')
+print(sentence)
+
+
+
+for i in range(1, 11):
+    sentence = 'The value is {:03}'.format(i)
+    print(sentence)
+
+
+pi = 3.14159265
+
+sentence = 'Pi is equal to {:02f}'.format(pi)
+sentence1 = 'Pi is equal to {:0.3}'.format(pi)
+
+print(sentence)
+print(sentence1)
+
+
+sentence = '$1 MB is equal to {:,} bytes'.format(1000**2)
+
+print(sentence)
+
+
+import datetime
+
+my_date = datetime.datetime(2016, 9, 24, 12, 30, 45)
+
+print(my_date, 'chubbles')
+
+#March 01, 2016
+
+sentence = '{:%B %d, %Y}'.format(my_date)
+
+print(sentence)
+
+#March 01, 2016 fell on a Tuesday and was the 061 day of the year.
+
+sentence = '{0:%B %d, %Y}, fell on a {0:%A} and was the {0:%j}th day of the year'.format(my_date)
+
+print(sentence)
+#new stuff
+
+# classes, is a blueprint for something like employees in a company or your contacts on your phone.  
+#each employee is an instance of the class employee # when you create an instant you can leave off self so you just put in the other parameters
+# attributes of a class like name          
+#instance variables are unique to each instance #self is the class instance #data are attributes, #functions are methods to be seen they need to be in the class - staic methods
+
+# class variables are shared among all instances
+
+# the namespace is the dunder dict
+
+#working on classes and instances of classes # the init method is to initialise the instance #don't forget about putting in self!'
+""" init is an initializer aka constructor"""
+"""if the init has values you must initialize with by giving those types of values"""
+
+#Need to figure out how to get the named copy_methods into classes. these are the dunder methods. Class local references, which is the propety decorator      
+
+
+class Employee:
+# placing variables above the init makes the class variables apply to the class
+    num_of_emps = 1
+    raise_amt = 1.04
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.email = first + '.' + last + '@email.com'
+        self.pay = pay
+
+        Employee.num_of_emps += 1
+
+    def fullname(self):
+        return '{} {}'.format(self.first, self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * self.raise_amt)
+        
+#special methods
+    def __repr__(self):
+    	return "Employee('{}', '{}', {})".format(self.first, self.last, self.pay)
+    	
+    def __str__(self):
+    	return '{} - {}'.format(self.fullname(), self.email)
+    	
+# using the @ symbol makes it a class method called a decorator. use 'cls' instead of 'self'
+    @classmethod
+    def set_raise_amt(cls, amount):
+        cls.raise_amt = amount
+        
+        
+# alternative constructor, when constructor wars, everyone should win,provide altenative constructors, but don't forget to call it from class
+    @classmethod
+    def employee_from_string(cls, emp_str):
+        first, last, pay = emp_str.split('-')
+        return cls(first, last, pay)
+
+#if your function does not access the class or an instance you should make it a class method,  this attaches function to a class. improves find ability and make sure that people use it in the appropriate context
+    @staticmethod
+    def is_workday(day):
+        if day.weekday() == 5 or day.weekday() == 6:
+            return False
+        return True
+# following class is a subclass of employee see how it doesn't call self
+class Developer(Employee):
+	#this raise amount will only apply to the developer subclass
+	raise_amount = 1.5
+		
+# want to set up inheritance - two main ways
+	def __init__(self, first, last, pay, prog_lang):
+		super().__init__(first, last, pay)
+		#Employee.__init__(self, first, last, pay)
+		self.prog_lang = prog_lang
+
+class Manager(Employee):
+
+	def __init__(self, first, last, pay, employees=None):
+		super().__init__(first, last, pay)
+		if employees is None:
+			self.employees = []
+		else:
+			self.employees = employees
+			
+	def add_emp(self,emp):
+		if emp not in self.employees:
+			self.employees.append(emp)
+			
+	def remove_emp(self,emp):
+		if emp in self.employees:
+			self.employees.remove(emp)
+			
+	def print_emps(self):
+		for emp in self.employees:
+			print('Reports of ', self.fullname(),  ': ', emp.fullname())
+		
+print('chuckle')
+print(int.__add__(1,2))
+print(str.__add__('a', 'b'))
+		
+		
+dev_1 = Developer('Corey', 'Schafer', 50005, 'python')
+dev_2 = Developer('Test', 'Employee', 60005, 'html')
+emp_1 = Employee('Corey', 'Schaferr', 50000)
+emp_2 = Employee('Test', 'johnson', 60000) #this is a class method so by default it's the class and so you can just put in the amount.
+print(emp_1.first, 'first nsme')
+mgr_1 = Manager('Nancy', 'Henderson', 345475, [dev_1, dev_2])
+print('chappy')
+print(isinstance(mgr_1, Developer))
+print(issubclass(Developer, Employee))
+
+#errorprint(mgr_1.employees(), 'hmmmm')
+mgr_1.print_emps()
+print(dev_1.email, 'dev_1 email where only thing in developer class is pass!  ')
+Employee.set_raise_amt(1.15)
+#print(help(Employee))
+#method resolution analyzer
+print('chaz')
+print(repr(emp_1), '...__repr__')
+print(str(emp_1), '...__str__')
+print(Employee.raise_amt)
+print(emp_1.raise_amt)
+print(emp_2.raise_amt)
+dev_1.apply_raise()
+print(dev_1.pay)
+print("${0:,.0f}".format(dev_1.pay))
+print(emp_1.__dict__)
+emp_str_1 = 'John-Doe-70000'
+emp_str_2 = 'Steve-Smith-30000'
+emp_str_3 = 'Jane-Doe-90000'
+
+print('two ways for full name of emplyee next:') 
+x = Employee.fullname(emp_1) 
+y = emp_2.fullname()
+print(x)
+print(y)
+first, last, pay = emp_str_1.split('-')
+
+#new_emp_1 = Employee(first, last, pay)
+new_emp_1 = Employee.employee_from_string(emp_str_1)
+
+print('employee set up from an inputted string follows:')
+print(new_emp_1.email)
+print(new_emp_1.pay)
+
+import datetime
+my_date = datetime.date(2016, 7, 11)
+today = datetime.date.today()
+
+print('static method for employee class:')
+print(Employee.is_workday(my_date))
+print(Employee.is_workday(today))
+
+print(Employee.fullname(emp_1))
+print(emp_1.fullname())
+print(emp_1.pay)
+#print(help(Developer))
+print(Employee.fullname(emp_2))
+
+
+#new class
+
+class gun:
+	def __init__(self, mfr, model, caliber, color):
+		self.mfr = mfr
+		self.model = model
+		self.caliber = caliber
+		self.color = color
+
+#__repr__ meant to be unambiguous and in a perfect world executable by itself
+	def __repr__(self):
+		return '{self.__class__.__name__}({self.mfr}, {self.model}, {self.caliber}, {self.color})'.format(self=self)
+			
+#__str__ meant to be readable for a person
+	def __str__(self):
+		return 'I have a {self.mfr} {self.model}. It is in {self.caliber} mm.'.format(self=self)
+		
+
+		
+my_gun = gun('Glock', '17', 9, 'black')
+my_gun2 = gun('Smith & Wesson', 'Shield', 9, '') 
+print('chad and gunsie') 
+my_gun #nothing happens print('<', my_gun, '>')
+#print(help(my_gun))
+var1 = '{}'.format(my_gun)
+print('var1' , var1, 'var1')
+my_gun
+#str(my_gun)
+#print(help(my_gun))
+repr(my_gun)
+print('this is a repr of class gun: ', repr(my_gun)) 
+print('this is a str of class gun: ', str(my_gun))
+print('hello')
+print(my_gun)
+print('goodbye')
+print(my_gun2)
+print(repr(my_gun2))
+
+bb = gun
+# bb is an "instance" of gun
+# bb is an object of gun
+bb.bullet_type = 'round'
+
+
+class user:
+	pass
+	
+user1 = user()
+user1.first_name = 'bubba'
+user1.last_name = 'johnson'
+first_name = 'clark'
+last_name = 'griswold'
+user1.age = 33
+user2 = user()
+user2.favorite_book = 'all creatures great and small'
+
+print(user1.first_name)
+print(first_name)
+print(user1.first_name, user1.last_name)
+
+
+
+class MyClass:
+	"""A simple example class"""
+	i = 12345
+
+	def f(self):
+		return 'hello world'
+	
+	def gg(number):
+		result = number * 5
+		return result
+		
+		
+print(MyClass.i)
+print(MyClass.f)
+a = MyClass
+print(a, '= that was a')
+print(a.i)
+print(a.f, 'hmmm')
+a.f(a)
+b = a.f(a)
+print(b)
+#error print(a.f())
+print(a.f(MyClass))
+print(MyClass.__doc__)
+print(MyClass.__repr__)
+
+x = MyClass()
+z = x.f
+print(z)
+
+zz = MyClass()
+#ss = zz.gg(5)
+#zz.gg(5)
+#print(ss)
+
+ppp = MyClass.gg(3455)
+print(ppp)
+
+
+import math
+
+class Bag:
+	def __init__(self):
+		self.data = [1]
+
+	def add(self, x):
+		self.data.append(x)
+
+	def addtwice(self, x):
+		self.add(x)
+		self.add(x)
+		
+x = Bag()
+print(x, '<---- this is x')
+x.add(5)
+z = x.addtwice(6)
+print(x.data)
+# error print(y.data)
+#print(y)
+print(z)
+print(Bag())
+
+class Circle (object):
+	
+	def __init__(self, radius):
+		self.radius = radius
+		self.area = 3.14 * radius*radius
+		
+	def area(self):
+		return math.pi * self.radius ** 2
+
+my_circle = Circle(2)
+y = my_circle.area
+print("y is on the next line")
+print(y)
+#print(my_circle.area())
+print(my_circle.radius)
+
+
+class Complex:
+    def __init__(self, realpart, imagpart, cnter):
+        self.r = realpart
+        self.i = imagpart
+        self.cntr = cnter
+
+x = Complex(4, -3.5, 1)
+
+x.counter = 0.1
+print(x.cntr)
+while x.cntr < 100:
+	x.cntr = x.cntr * 2
+	print(x.cntr)
+	print('dude')
+print(x.cntr)
+del x.cntr
+
+#new stuff
+""
+MATTER MANAGEMENT PROGRAM FOR MANAGING MATTER SPEND
+"""
+from itertools import *
+import csv
+import datetime
+import pytz
+
+"""
+CLASSES
+"""
+class Matter:
+
+  num_of_mttrs = 0
+
+  #matter class is the number and formal name of a matter.
+  def __init__(self, number, caption=None, nickname=None, status=None):
+    self.number = number
+    self.caption = caption if caption is not None else None
+    self.nickname = nickname if nickname is not None else None
+    self.status = "Open" if status is None else "Closed"
+
+#special methods
+  def __repr__(self):
+    return "Matter Number: '{}'; Caption: '{}' aka: '{}'; status: {}.".format(self.number, self.caption, self.nickname, self.status)
+    	
+  def __str__(self):
+    return '{} - {}'.format(self.number(), self.caption)
+
+class AOP(Matter):
+  def __init__(self, number, fscl_year, fq1, fq2, fq3, fq4):
+    super().__init__(number)
+    self.AOP = [fscl_year, fq1, fq2, fq3, fq4]
+    self.fiscal_year = fscl_year
+    self.FQ1 = fq1
+    self.FQ2 = fq2
+    self.FQ3 = fq3
+    self.FQ4 = fq4
+
+
+
+  @classmethod
+  #This method gets the AOP for a matter .  To use it 'new_aop = AOP.from_screen()'
+  def from_screen(cls): 
+    print('Enter the AOP for a litigation matter in the format noted below.')
+    print('\t   Mattter#, FYR, $Q1$, $Q2$, $Q3$, $Q4$.')
+    print('Example:     23322, 2019, 3000, 4000, 5050, 6000')
+    number, fscl_year, fq1, fq2, fq3, fq4 = input("Enter AOP:  ").split()
+    return cls(number, fscl_year, fq1, fq2, fq3, fq4)
+
+  @classmethod
+    #This method gets the AOP for a matter .  To use it 'new_aop = AOP.from_screen()'
+  def from_file(cls): 
+    pass
+      #print('Enter the AOP for a litigation matter in the format noted below.')
+      #print('\t   Mattter#, FYR, $Q1$, $Q2$, $Q3$, $Q4$.')
+      #print('Example:     23322, 2019, 3000, 4000, 5050, 6000')
+      #number, fscl_year, fq1, fq2, fq3, fq4 = input("Enter AOP:  ").split()
+      #return cls(number, fscl_year, fq1, fq2, fq3, fq4)
+
+"""
+FUNCTIONS
+"""
+def timestamp():
+  #function requires datetime and pytz.  returns a current time datestamp string out to microsecond
+  current_time = datetime.datetime.now(tz=pytz.utc).astimezone(pytz.timezone('US/Central'))
+  timestmp = (str(current_time.year) + '-' +  str(current_time.month) + '-' +  str(current_time.day) + '-' + str(current_time.hour) + '-' + str(current_time.minute) + '-' + str(current_time.second) + '-' + str(current_time.microsecond))
+  return timestmp
+
+
+
+
+
+
+
+"""
+EXECUTIONS
+"""
+#new_aop = []
+new_aop = AOP.from_screen
+print(new_aop)
+##print(type(new_aop))
+#print(new_aop.nickname)
+#print(new_aop.number, 'chapy')
+
+#for a single tuple this works
+with open('AOP_output', 'a') as f:
+  f.write(new_aop) #I don't know why but the + is what got that to create the newline
+  f.write('\n')
+f.close()
+
+
+
+
+chad = number, fscl_year, fq1, fq2, fq3, fq4 = input("Enter the AOP:  ").split()
+#print(chad, 'chazz')
+print(type(new_aop), "new aop type")
+print(type(chad), "new chad")
+
+
+
+
+
+
+
+
+
+My_Matter = Matter(5569, "Sasso v. MDT")
+My_AOP = AOP(5569, 2018, 23, 24, 56, 67)
+print(My_Matter.__dict__)
+print(My_Matter.number) # no parens because it is an attribute
+print(My_Matter.caption)
+print(My_Matter.nickname)
+print(My_Matter.status)
+My_Matter = Matter(5569, status = 0)
+print('chad')
+print(My_Matter.status)
+print(My_AOP.AOP, 'chazz')
+print(My_AOP.AOP[2])
+#print(My_AOP.AOP.caption)
+My_Matter = Matter(55469, "Sasso v. MDT", nickname="Sasso")
+print(My_Matter.number)
+print(My_Matter.caption)
+print('nickname:', My_Matter.nickname)
+print(My_Matter.status)
+
+print(repr(My_Matter), 'this is a repr')
+#the foo function has a required argument and possible extra positional (requires the "*") (*args) and keyword (requires the "**") (**kwargs) arguments.  The extra arguments must be in order.  ANd key words mut be named differently
+# positional argument create a tuple
+#keyword argumenta re put into a dictionary
+
+class_list = []
+
+#while (True):
+number, fscl_year, fq1, fq2, fq3, fq4 = [int(i) for i in input(" Enter Mattter#, FYR, $Q1$, $Q2$, $Q3$, $Q4$ and then hit return").split(" ")]
+    
+class_list.append({
+  "Matter Number": number,
+  "Fiscal Year": fscl_year,
+  "FYQ1": fq1,
+  "FYQ2": fq2,
+  "FYQ3": fq3,
+  "FYQ4": fq4
+})
+
+
+#My_Dict = dict(class_list)
+
+
+ #   cont = input("Want to add another? (Y/N)")
+ #   if cont == "N":
+ #       break;
+
+print(type(class_list), 'type of the class_list')
+print(class_list)
+
+
+
+
+f = open('AOP_output', 'a')
+for item in class_list:
+  f.write(str(item)) # puts everything back to back making one long number
+  f.write('\n')
+f.close()
+
+
+
+
+
+
+
+def fiscal_quarter(month, year):
+  """use calendar month and year to create a string representing MDT fiscal quarter"""
+  Year = row['Charge Year']
+  Year_Int = str(int(Year[2:5]) + 1)
+  if month == '5' or month == '6' or month == '7':
+    FSCLQTR = 'FY' + Year_Int + 'Q1'
+  elif month == '8' or month == '9' or month == '10':
+    FSCLQTR = 'FY' + Year_Int + 'Q2'
+  elif month == '11' or month == '12':
+    FSCLQTR = 'FY' + Year_Int + 'Q3'
+  elif month == '1':
+    FSCLQTR = 'FY' + Year[2:5] + 'Q3'
+  elif month == '2' or month == '3' or month == '4':
+    FSCLQTR = 'FY' + Year + 'Q4'                    
+  return FSCLQTR  
+
+
+def convert_sign_of_num(number):
+  """used to convert a Passport spend to a positive number, but simply converts pos to neg and neg to pos"""
+  opp_sign_number = number * -1
+  return opp_sign_number
+
+
+
+
+with open('chad_tt_data.csv', 'r') as csv_file:
+  reader = csv.DictReader(islice(csv_file, 4, None))
+  spend_dict = {}
+  #print(type(spend_dict))
+  print(spend_dict.keys(),  "once?")
+  for row in reader:
+    print(row)
+    
+    
+
+
+
+
+
+def get_non_negative_int(prompt, num_type=None):
+  while True:
+    try:
+      value = int(input(prompt))
+    except ValueError:
+      print("enter a positive, whole number")
+      continue
+    if value <= 0:
+      print("enter a positive, whole number.")
+      continue
+    if num_type is 'month' and value > 12:
+      print("Month must not exceed 12.")
+      continue  
+    if num_type is year and value < year:
+      print("year must be >= current year.")
+      continue  
+    if num_type is year and value > year + 5:
+      print(" Let's not estimate this far into the future")
+      continue        
+    else:
+      break
+  return value
+
+
+with open('chad_tsk_mngr_input.csv', 'r') as csv_file:
+	
+	csv_reader = csv.reader(csv_file)
+	for line in csv_reader:
+		
+		f = open('test_file.txt', 'a')
+		
+		print('Next task:', line[0])
+		tsk_month = get_non_negative_int('enter month: ', month)
+		tsk_year = get_non_negative_int('enter year:', year)
+		tsk_day = 1
+		tsk_date = str(tsk_month) + "/1/" + str(tsk_year)
+		tsk_date2 = datetime.date(tsk_year, tsk_month, tsk_day)
+		print(tsk_date)
+		print(tsk_date2)
+		f.write(tsk_date)
+		f.write('\t')
+		
+
+
+#new stuff
+#the foo function has a required argument and possible extra positional (requires the "*") (*args) and keyword (requires the "**") (**kwargs) arguments.  The extra arguments must be in order.  ANd key words mut be named differently
+# positional argument create a tuple
+#keyword argumenta re put into a dictionary
+def foo(required, *args, **kwargs):
+  print("Required argument:", required)
+  if args:
+    print("Positional argument:", args)
+  if kwargs:
+    print("keyword argument:", kwargs)
+
+
+foo("chap")
+foo("XHp", 1, 2, 3)
+foo(5)
+foo("chappy", 4, 5, "chadd", 1, "string", key_2 = 5, key_0 = "another string", key_1 = 5678)
+
+
+#we can write wrapper functions but remember qwargs can be changed in place because they are a dictionary, the args are tuples and must be created anew as they are imutable.  THis is a dangerous way but sometimes useful to wrap a library
+def foo_1(x, *args, **kwargs):
+  kwargs['name'] = "Alice"
+  new_args = args, ("extra", )
+  foo(x, *new_args, **kwargs)
+
+
+  foo("chap")
+foo_1("XHp", 1, 2, 3)
+foo_1(5)
+foo_1("chappy", 4, 5, "chadd", 1, "string", key_2 = 5, key_0 = "another string", key_1 = 5678)
+
+class Car:
+  def __init__(self, color, mileage):
+    self.color = color
+    self.mileage = mileage
+
+class AlwaysBlueCar(Car):
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.color = 'blue'
+
+my_car = Car('red', 120000)
+print(my_car)
+print(my_car.color)
+my_blue_car = AlwaysBlueCar('red', 140000)
+print(my_blue_car)
+print(my_blue_car.color)
+
+
+#new stuff
