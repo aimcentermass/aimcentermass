@@ -1,0 +1,14 @@
+#Fiscal_Dig = AOP_fiscal_year(My_AOP.fiscal_year)
+#print(Fiscal_Dig)
+#print(len(str(My_AOP.fiscal_year)))
+a = str(My_AOP.fiscal_year)
+print(a)
+b = slice(2, 5)
+print(a[b])
+cntr = itertools.count(start=1, step = 1)
+print(next(cntr))
+#print(next(cntr))
+#cntr = itertools.count(start=1, step = 1)
+aop_list = ["testing", 'twice']
+#for step in range(4):
+aop_list.append(str("FY" + "yr" + "Q" + str(next(cntr))
